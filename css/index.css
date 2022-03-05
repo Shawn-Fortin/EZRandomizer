@@ -61,3 +61,13 @@ input {
 input:focus-visible {
 	border-bottom: 1px solid blue;
 }
+
+@media only screen and (max-width: 600px) {
+	#body {
+		flex-direction: column;
+	}
+
+	#first-panel {
+		padding-bottom: 16px;
+	}
+}
