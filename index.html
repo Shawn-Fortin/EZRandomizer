@@ -20,14 +20,16 @@
 				<input type="color" id="color-picker" value="#f2caca">
 				<button id="color-picker-submit" onclick="onSubmitColor()">Submit</button>
 				-->
-				<div class="body-panel">
+				<div id="first-panel" class="body-panel">
 					<div class="panel-header">
 						Enter Player Names Here
 					</div>
 					<div id="left-inner">
 						<div id="name-controls">
 							<div id="name-input-container">
-								<input id="name-input">
+								<form id="name-form" name="name" autocomplete="off">
+									<input type="text" id="name-input">
+								</form>
 								<span id="name-submit" class="material-icons-outlined green name-input-icon">done</span>
 								<span id="randomize" class="material-icons-outlined blue name-input-icon">shuffle</span>
 							</div>

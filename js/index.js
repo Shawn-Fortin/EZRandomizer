@@ -9,24 +9,14 @@ const divNames = document.getElementById("names");
 const divRandomNames = document.getElementById("random-names");
 const buttonRandomize = document.getElementById("randomize");
 const inputGroups = document.getElementById("groups-input");
+const formName = document.getElementById("name-form");
 
-function onSubmitColor() {
-	const colorPicker = document.getElementById("color-picker");
-	const body = document.getElementById("body");
-	body.style.backgroundColor = colorPicker.value;
-}
-
-function onClickEnterName() {
+function onSubmitNameForm(e) {
+	e.preventDefault();
 	const value = inputName.value;
 	if (value) {
 		divNames.innerHTML += `<div>${value}</div>`;
 		inputName.value = null;
-	}
-}
-
-function checkNameInputKeyup(e) {
-	if (e.code === ENTER_KEY) {
-		onClickEnterName();
 	}
 }
 
@@ -59,8 +49,7 @@ function onBlurGroupsInput() {
 	}
 }
 
-//buttonColorPickerSubmit.addEventListener("click", onSubmitColor);
-inputName.addEventListener("keyup", checkNameInputKeyup);
-buttonNameSubmit.addEventListener("click", onClickEnterName);
+buttonNameSubmit.addEventListener("click", onSubmitNameForm);
+formName.addEventListener("submit", onSubmitNameForm);
 buttonRandomize.addEventListener("click", onClickRandomize);
 inputGroups.addEventListener("blur", onBlurGroupsInput);
