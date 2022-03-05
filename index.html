@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="./css/index.css">
+		<link rel="stylesheet" href="./css/common.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+	</head>
+	<body>
+		<div id="content-container">
+			<div id="header">
+				<div id="page-title">
+					EZRandomizer
+				</div>
+				<a id="nav-button" href="./about/">
+					<span class="material-icons-outlined blue">info</span>
+				</a>
+			</div>
+			<div id="body">
+				<!--
+				<input type="color" id="color-picker" value="#f2caca">
+				<button id="color-picker-submit" onclick="onSubmitColor()">Submit</button>
+				-->
+				<div class="body-panel">
+					<div class="panel-header">
+						Enter Player Names Here
+					</div>
+					<div id="left-inner">
+						<div id="name-controls">
+							<div id="name-input-container">
+								<input id="name-input">
+								<span id="name-submit" class="material-icons-outlined green name-input-icon">done</span>
+								<span id="randomize" class="material-icons-outlined blue name-input-icon">shuffle</span>
+							</div>
+							<div id="groups-input-container">
+								<div id="groups-label">
+									Number of groups
+								</div>
+								<input id="groups-input" type="number" min="1" max="999" value="1">
+							</div>
+						</div>
+						<div id="names">
+							<!-- names will be filled in when the user enters them via JS -->
+						</div>
+					</div>
+				</div>
+
+				<div class="body-panel">
+					<div class="panel-header">
+						Your Randomized Groups Will Appear Here
+					</div>
+					<div id="random-names">
+						<!-- random names will be filled when the user clicks the randomize button via JS -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="module" src="./js/index.js"></script>
+	</body>
+</html>

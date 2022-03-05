@@ -1,0 +1,25 @@
+#header {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#page-title {
+    font-size: 2em;
+}
+
+#nav-button {
+	position: absolute;
+	left: 8px;
+    top: 8px;
+}
+
+.material-icons-outlined.green {
+    color: green;
+}
+
+.material-icons-outlined.blue {
+    color: blue;
+}
