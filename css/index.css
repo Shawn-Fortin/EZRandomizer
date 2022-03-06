@@ -34,9 +34,27 @@
 	padding-bottom: 8px;
 }
 
-.name-input-icon {
-	cursor: pointer;
-	margin-left: 8px;
+button {
+	border-radius: 4px;
+	box-shadow: 1px 2px #ebebeb;
+}
+
+#name-submit {
+	background-color: white;
+	border: 1px solid grey;
+}
+
+#randomize {
+	background-color: #ebebeb;
+	border: 1px solid grey;
+}
+
+#name-submit:hover {
+	background-color: #ebebeb;
+}
+
+#randomize:hover {
+	background-color: #d6d6d6;
 }
 
 #groups-input-container {
@@ -50,14 +68,6 @@
 
 #groups-input {
 	flex: 1 1 0;
-}
-
-input {
-	border-top: none;
-	border-right: none;
-	border-left: none;
-	border-bottom: 1px solid lightblue;
-	outline: none;
 }
 
 input:focus-visible {
