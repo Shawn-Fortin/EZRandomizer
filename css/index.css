@@ -7,17 +7,19 @@
 #body {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
+	row-gap: 16px;
+	margin-top: 16px;
 }
 
 .body-panel {
-	flex: 1 1 0;
+	flex: 1 1 250px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
 .panel-header {
-	padding-bottom: 8px;
 	font-weight: bold;
 }
 
@@ -60,14 +62,4 @@ input {
 
 input:focus-visible {
 	border-bottom: 1px solid blue;
-}
-
-@media only screen and (max-width: 320px) {
-	#body {
-		flex-direction: column;
-	}
-
-	#first-panel {
-		padding-bottom: 16px;
-	}
 }
