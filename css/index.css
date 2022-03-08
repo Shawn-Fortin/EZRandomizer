@@ -40,7 +40,28 @@
 }
 
 .name-list-item {
-	padding: 4px 0px 4px 4px;
+	padding: 4px 8px 4px 8px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: background-color 0.25s;
+	border-radius: 4px;
+}
+
+.clear-icon {
+	color: var(--color-grey);
+	font-size: 1.2em !important;
+	cursor: pointer;
+	opacity: 0;
+	transition: opacity 0.25s;
+}
+
+.name-list-item:hover > .clear-icon {
+	opacity: 1;
+}
+
+.clear-icon:hover {
+	color: var(--color-red);
 }
 
 .name-list-item:hover {

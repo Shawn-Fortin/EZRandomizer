@@ -10,11 +10,29 @@ const buttonRandomize = document.getElementById("randomize");
 const inputGroups = document.getElementById("groups-input");
 const formName = document.getElementById("name-form");
 
+let nameId = 0;
+
+function getOnClickDeleteNameHandler(nameListItemId) {
+	return () => document.getElementById(nameListItemId).remove();
+}
+
 function onSubmitNameForm(e) {
 	e.preventDefault();
 	const value = inputName.value;
 	if (value) {
-		divNames.innerHTML += `<div class="name-list-item">${value}</div>`;
+		const id = `name-${nameId}`;
+		nameId++;
+		const nameListItemElement = document.createElement("div");
+		nameListItemElement.setAttribute("class", "name-list-item");
+		nameListItemElement.setAttribute("id", id);
+		nameListItemElement.innerHTML = value;
+
+		const deleteIconElement = document.createElement("span");
+		deleteIconElement.setAttribute("class", "material-icons-outlined clear-icon");
+		deleteIconElement.innerHTML = "clear";
+		deleteIconElement.addEventListener("click", getOnClickDeleteNameHandler(id));
+		nameListItemElement.appendChild(deleteIconElement);
+		divNames.appendChild(nameListItemElement);
 		inputName.value = null;
 	}
 }
