@@ -20,7 +20,8 @@
 }
 
 .panel-header {
-	font-weight: bold;
+	font-size: 1.25em;
+	margin-bottom: 8px;
 }
 
 #left-inner {
@@ -34,27 +35,71 @@
 	padding-bottom: 8px;
 }
 
+#names {
+	margin-top: 8px;
+}
+
+.name-list-item {
+	padding: 4px 0px 4px 4px;
+}
+
+.name-list-item:hover {
+	background-color: var(--color-light-blue);
+}
+
+input {
+	appearance: none;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: 1px solid var(--color-grey);
+}
+
+input:focus-visible {
+	outline: none;
+	border-bottom-color: var(--color-black);
+}
+
 button {
 	border-radius: 4px;
-	box-shadow: 1px 2px #ebebeb;
-}
-
-#name-submit {
-	background-color: white;
-	border: 1px solid grey;
-}
-
-#randomize {
-	background-color: #ebebeb;
-	border: 1px solid grey;
 }
 
 #name-submit:hover {
-	background-color: #ebebeb;
+	cursor: pointer;
+	background-color: var(--color-dark-green);
+	color: var(--color-white);
+	box-shadow: 1px 1px var(--color-grey);
+}
+
+#name-submit {
+	background-color: var(--color-white);
+	color: var(--color-dark-green);
+	font-weight: bold;
+	border: 1px solid var(--color-transparent);
+}
+
+#name-submit:active {
+	box-shadow: none;
+	background-color: var(--color-green);
 }
 
 #randomize:hover {
-	background-color: #d6d6d6;
+	background-color: var(--color-dark-green);
+	cursor: pointer;
+}
+
+#randomize, #randomize:active {
+	background-color: var(--color-green);
+	border: 1px solid var(--color-transparent);
+	color: var(--color-white);
+	font-weight: bold;
+	box-shadow: 1px 1px var(--color-grey);
+	margin-top: 8px;
+	letter-spacing: 0.5px;
+}
+
+#randomize:active {
+	box-shadow: none;
 }
 
 #groups-input-container {
@@ -68,8 +113,4 @@ button {
 
 #groups-input {
 	flex: 1 1 0;
-}
-
-input:focus-visible {
-	border-bottom: 1px solid blue;
 }

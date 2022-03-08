@@ -1,3 +1,19 @@
+:root {
+	--color-black: black;
+	--color-blue: #2626d9;
+	--color-dark-blue: #2323c7;
+	--color-light-blue: #f5fcff;
+	--color-green: #22c322;
+	--color-dark-green: #1fad1f;
+	--color-grey: #aaaaaa;
+	--color-transparent: rgba(0,0,0,0);
+	--color-white: white;
+}
+
+body {
+	font-family: Helvetica;
+}
+
 #header {
 	flex: 1 1 0;
 	display: flex;
@@ -14,12 +30,5 @@
 	position: absolute;
 	left: 8px;
     top: 8px;
-}
-
-.material-icons-outlined.green {
-    color: green;
-}
-
-.material-icons-outlined.blue {
-    color: blue;
+	color: var(--color-blue);
 }

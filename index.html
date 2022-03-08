@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<link rel="stylesheet" href="./css/index.css">
 		<link rel="stylesheet" href="./css/common.css">
+		<link rel="stylesheet" href="./css/index.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 	</head>
@@ -29,9 +29,10 @@
 						<div id="name-controls">
 							<div id="name-input-container">
 								<form id="name-form" name="name" autocomplete="off">
-									<input type="text" id="name-input">
+									Name:
+									<input type="text" id="name-input" placeholder="Enter a name">
+									<button id="name-submit" type="submit">ADD</button>
 								</form>
-								<button id="name-submit">ADD</button>
 							</div>
 							<div id="groups-input-container">
 								<div id="groups-label">
@@ -43,7 +44,7 @@
 						<div id="names">
 							<!-- names will be filled in when the user enters them via JS -->
 						</div>
-						<button id="randomize">SHUFFLE</button>
+						<button id="randomize">RANDOMIZE</button>
 					</div>
 				</div>
 
