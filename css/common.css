@@ -1,18 +1,28 @@
 :root {
 	--color-black: black;
-	--color-blue: #2626d9;
-	--color-dark-blue: #2323c7;
-	--color-light-blue: #f5fcff;
-	--color-green: #22c322;
-	--color-dark-green: #1fad1f;
+	--color-lightest-green: hsl(120, 65%, 95%);
+	--color-lighter-green: hsl(120, 65%, 80%);
+	--color-light-green: hsl(120, 65%, 65%);
+	--color-green: hsl(120, 65%, 50%);
+	--color-dark-green: hsl(120, 50%, 50%);
+	--color-darker-green: hsl(120, 50%, 40%);
 	--color-grey: #aaaaaa;
 	--color-red: #b31919;
-	--color-transparent: rgba(0,0,0,0);
+	--color-transparent: rgba(0, 0, 0, 0);
 	--color-white: white;
 }
 
 body {
 	font-family: Helvetica;
+}
+
+#content-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	max-height: 100%;
+	overflow-y: auto;
 }
 
 #header {
@@ -21,15 +31,19 @@ body {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	color: var(--color-white);
+	background-color: var(--color-darker-green);
+	padding-top: 90px;
+	padding-bottom: 10px;
 }
 
 #page-title {
-    font-size: 2em;
+    font-size: 3em;
 }
 
 #nav-button {
 	position: absolute;
 	left: 8px;
     top: 8px;
-	color: var(--color-blue);
+	color: var(--color-white);
 }

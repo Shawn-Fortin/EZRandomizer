@@ -39,18 +39,35 @@ function onSubmitNameForm(e) {
 
 function onClickRandomize() {
 	divRandomNames.innerHTML = null;
-	const nameDivs = divNames.children;
-	const names = [];
-	for (let i = 0; i < nameDivs.length; i++) {
-		names.push(nameDivs.item(i).innerHTML);
-	}
+	const names = Array.from(divNames.children).map(namesChild => {
+		return Array.from(namesChild.childNodes).filter(child => child.nodeType === Node.TEXT_NODE)[0].textContent
+	});
+	console.log(names);
 	const randomizedNames = shuffle(names, inputGroups.value);
 	if (randomizedNames.length === 1) {
-		randomizedNames[0].forEach(name => divRandomNames.innerHTML += "<div>" + name + "</div>")
+		randomizedNames[0].forEach(name => {
+			const divName = document.createElement("div");
+			divName.innerHTML = name;
+			divRandomNames.appendChild(divName);
+		});
 	} else {
-		randomizedNames.forEach((group, index) => {
-			divRandomNames.innerHTML += "<h1> Group " + (index + 1) + "</h1>";
-			group.forEach(name => divRandomNames.innerHTML += "<div>" + name + "</div>");
+		randomizedNames.forEach((group, index, groups) => {
+			const divGroupContainer = document.createElement("div");
+			divGroupContainer.classList.add("group");
+			if (index === groups.length - 1) {
+				divGroupContainer.classList.add("last-group");
+			}
+
+			const divGroupTitle = document.createElement("div");
+			divGroupTitle.classList.add("group-title");
+			divGroupTitle.innerHTML = `Group ${index + 1}`;
+			divGroupContainer.appendChild(divGroupTitle);
+			group.forEach(name => {
+				const divName = document.createElement("div");
+				divName.innerHTML = name;
+				divGroupContainer.appendChild(divName);
+			})
+			divRandomNames.appendChild(divGroupContainer);
 		})
 	}
 }

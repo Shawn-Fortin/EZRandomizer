@@ -17,11 +17,26 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-bottom: 8px;
 }
 
 .panel-header {
-	font-size: 1.25em;
+	font-size: 1.5em;
 	margin-bottom: 8px;
+	text-align: center;
+}
+
+.group {
+	padding-bottom: 8px;
+}
+
+.group.last-group {
+	padding-bottom: 0px;
+}
+
+.group-title {
+	font-size: 1.25em;
+	color: var(--color-darker-green);
 }
 
 #left-inner {
@@ -65,7 +80,7 @@
 }
 
 .name-list-item:hover {
-	background-color: var(--color-light-blue);
+	background-color: var(--color-lightest-green);
 }
 
 input {
@@ -78,49 +93,42 @@ input {
 
 input:focus-visible {
 	outline: none;
-	border-bottom-color: var(--color-black);
+	border-bottom-color: var(--color-dark-green);
 }
 
 button {
-	border-radius: 4px;
-}
-
-#name-submit:hover {
+	appearance: none;
 	cursor: pointer;
-	background-color: var(--color-dark-green);
-	color: var(--color-white);
-	box-shadow: 1px 1px var(--color-grey);
+	padding: 4px;
 }
 
 #name-submit {
-	background-color: var(--color-white);
-	color: var(--color-dark-green);
+	background-color: var(--color-transparent);
+	color: var(--color-darker-green);
 	font-weight: bold;
-	border: 1px solid var(--color-transparent);
+	border-width: 0px;
+}
+
+#name-submit:hover {
+	background-image: linear-gradient(to bottom, var(--color-white), var(--color-lightest-green));
 }
 
 #name-submit:active {
-	box-shadow: none;
-	background-color: var(--color-green);
+	background-image: linear-gradient(to top, var(--color-white), var(--color-lightest-green));
 }
 
-#randomize:hover {
-	background-color: var(--color-dark-green);
-	cursor: pointer;
-}
-
-#randomize, #randomize:active {
-	background-color: var(--color-green);
-	border: 1px solid var(--color-transparent);
+#randomize {
+	background-image: linear-gradient(to bottom, var(--color-light-green), var(--color-green));
+	border-radius: 4px;
+	border-width: 0px;
 	color: var(--color-white);
 	font-weight: bold;
-	box-shadow: 1px 1px var(--color-grey);
 	margin-top: 8px;
 	letter-spacing: 0.5px;
 }
 
 #randomize:active {
-	box-shadow: none;
+	background-image: linear-gradient(to top, var(--color-light-green), var(--color-green));
 }
 
 #groups-input-container {
