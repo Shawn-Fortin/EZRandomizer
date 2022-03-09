@@ -10,29 +10,64 @@ const buttonRandomize = document.getElementById("randomize");
 const inputGroups = document.getElementById("groups-input");
 const formName = document.getElementById("name-form");
 
+let nameId = 0;
+
+function getOnClickDeleteNameHandler(nameListItemId) {
+	return () => document.getElementById(nameListItemId).remove();
+}
+
 function onSubmitNameForm(e) {
 	e.preventDefault();
 	const value = inputName.value;
 	if (value) {
-		divNames.innerHTML += `<div class="name-list-item">${value}</div>`;
+		const id = `name-${nameId}`;
+		nameId++;
+		const nameListItemElement = document.createElement("div");
+		nameListItemElement.setAttribute("class", "name-list-item");
+		nameListItemElement.setAttribute("id", id);
+		nameListItemElement.innerHTML = value;
+
+		const deleteIconElement = document.createElement("span");
+		deleteIconElement.setAttribute("class", "material-icons-outlined clear-icon");
+		deleteIconElement.innerHTML = "clear";
+		deleteIconElement.addEventListener("click", getOnClickDeleteNameHandler(id));
+		nameListItemElement.appendChild(deleteIconElement);
+		divNames.appendChild(nameListItemElement);
 		inputName.value = null;
 	}
 }
 
 function onClickRandomize() {
 	divRandomNames.innerHTML = null;
-	const nameDivs = divNames.children;
-	const names = [];
-	for (let i = 0; i < nameDivs.length; i++) {
-		names.push(nameDivs.item(i).innerHTML);
-	}
+	const names = Array.from(divNames.children).map(namesChild => {
+		return Array.from(namesChild.childNodes).filter(child => child.nodeType === Node.TEXT_NODE)[0].textContent
+	});
+	console.log(names);
 	const randomizedNames = shuffle(names, inputGroups.value);
 	if (randomizedNames.length === 1) {
-		randomizedNames[0].forEach(name => divRandomNames.innerHTML += "<div>" + name + "</div>")
+		randomizedNames[0].forEach(name => {
+			const divName = document.createElement("div");
+			divName.innerHTML = name;
+			divRandomNames.appendChild(divName);
+		});
 	} else {
-		randomizedNames.forEach((group, index) => {
-			divRandomNames.innerHTML += "<h1> Group " + (index + 1) + "</h1>";
-			group.forEach(name => divRandomNames.innerHTML += "<div>" + name + "</div>");
+		randomizedNames.forEach((group, index, groups) => {
+			const divGroupContainer = document.createElement("div");
+			divGroupContainer.classList.add("group");
+			if (index === groups.length - 1) {
+				divGroupContainer.classList.add("last-group");
+			}
+
+			const divGroupTitle = document.createElement("div");
+			divGroupTitle.classList.add("group-title");
+			divGroupTitle.innerHTML = `Group ${index + 1}`;
+			divGroupContainer.appendChild(divGroupTitle);
+			group.forEach(name => {
+				const divName = document.createElement("div");
+				divName.innerHTML = name;
+				divGroupContainer.appendChild(divName);
+			})
+			divRandomNames.appendChild(divGroupContainer);
 		})
 	}
 }
