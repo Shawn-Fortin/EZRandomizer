@@ -52,11 +52,14 @@
 
 input {
 	background-color: var(--color-lightest-green);
-	height: 1.5em;
+	padding: 4px 0px 4px 0px;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
-	padding-left: 4px;
 	font-size: 0.9em;
+}
+
+#name-input {
+	padding-left: 4px;
 }
 
 #names {
