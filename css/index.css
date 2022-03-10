@@ -76,28 +76,31 @@ input:not([type="radio"]) {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	transition: background-color 0.25s;
 	border-radius: 4px;
+	background-color: var(--color-lightest-green);
+}
+
+.name-list-item:nth-child(2n) {
+	background-color: var(--color-transparent);
 }
 
 .clear-icon {
 	color: var(--color-grey);
 	font-size: 1.2em !important;
 	cursor: pointer;
-	opacity: 0;
-	transition: opacity 0.25s;
+	transition: color 0.2s;
 }
 
 .name-list-item:hover > .clear-icon {
-	opacity: 1;
-}
-
-.clear-icon:hover {
 	color: var(--color-red);
 }
 
-.name-list-item:hover {
-	background-color: var(--color-lightest-green);
+input {
+	appearance: none;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-bottom: 1px solid var(--color-grey);
 }
 
 input:focus-visible {
@@ -158,22 +161,4 @@ button {
 	display: flex;
 	flex-direction: column;
 	padding-left: 8px;
-}
-
-@media(hover:none) {
-	.name-list-item {
-		background-color: var(--color-lightest-green);
-	}
-
-	.name-list-item:nth-child(2n) {
-		background-color: var(--color-transparent);
-	}
-
-	.clear-icon {
-		opacity: 1;
-	}
-
-	.clear-icon:active {
-		color: var(--color-red);
-	}
 }
