@@ -50,6 +50,15 @@
 	padding-bottom: 8px;
 }
 
+input {
+	background-color: var(--color-lightest-green);
+	height: 1.5em;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	padding-left: 4px;
+	font-size: 0.9em;
+}
+
 #names {
 	margin-top: 8px;
 }
@@ -134,6 +143,7 @@ button {
 #groups-input-container {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
 #groups-label {
@@ -141,7 +151,7 @@ button {
 }
 
 #groups-input {
-	flex: 1 1 0;
+	text-align: center;
 }
 
 @media(hover:none) {
@@ -155,6 +165,9 @@ button {
 
 	.clear-icon {
 		opacity: 1;
+	}
+
+	.clear-icon:active {
 		color: var(--color-red);
 	}
 }
