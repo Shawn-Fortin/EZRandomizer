@@ -143,3 +143,18 @@ button {
 #groups-input {
 	flex: 1 1 0;
 }
+
+@media(hover:none) {
+	.name-list-item {
+		background-color: var(--color-lightest-green);
+	}
+
+	.name-list-item:nth-child(2n) {
+		background-color: var(--color-transparent);
+	}
+
+	.clear-icon {
+		opacity: 1;
+		color: var(--color-red);
+	}
+}

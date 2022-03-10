@@ -8,7 +8,7 @@
 	--color-darker-green: hsl(120, 50%, 40%);
 	--color-grey: #aaaaaa;
 	--color-red: #b31919;
-	--color-transparent: rgba(0, 0, 0, 0);
+	--color-transparent: transparent;
 	--color-white: white;
 }
 
