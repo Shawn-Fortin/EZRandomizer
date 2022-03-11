@@ -1,4 +1,4 @@
-import { MAX_GROUPS, MIN_GROUPS } from './constants.js';
+import { GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS, MAX_GROUPS, MIN_GROUPS } from './constants.js';
 import { shuffle } from './utils.js';
 
 
@@ -9,6 +9,9 @@ const divRandomNames = document.getElementById("random-names");
 const buttonRandomize = document.getElementById("randomize");
 const inputGroups = document.getElementById("groups-input");
 const formName = document.getElementById("name-form");
+const radioNumberOfGroups = document.getElementById("number-of-groups");
+const radioMembersPerGroup = document.getElementById("members-per-group");
+const radioGroupGroupInputType = Array.of(radioNumberOfGroups, radioMembersPerGroup);
 
 let nameId = 0;
 
@@ -37,13 +40,18 @@ function onSubmitNameForm(e) {
 	}
 }
 
+function calculateNumberOfGroups(numberOfNames) {
+	return Math.ceil(numberOfNames / inputGroups.value);
+}
+
 function onClickRandomize() {
 	divRandomNames.innerHTML = null;
 	const names = Array.from(divNames.children).map(namesChild => {
 		return Array.from(namesChild.childNodes).filter(child => child.nodeType === Node.TEXT_NODE)[0].textContent
 	});
-	console.log(names);
-	const randomizedNames = shuffle(names, inputGroups.value);
+	const groupInputType = radioGroupGroupInputType.find(radioInput => radioInput.checked).value;
+	const numberOfGroups = groupInputType === GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS ? inputGroups.value : calculateNumberOfGroups(names.length);
+	const randomizedNames = shuffle(names, numberOfGroups);
 	if (randomizedNames.length === 1) {
 		randomizedNames[0].forEach(name => {
 			const divName = document.createElement("div");
