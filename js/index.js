@@ -4,6 +4,7 @@ import { shuffle } from './utils.js';
 
 //const buttonColorPickerSubmit = document.getElementById("color-picker-submit");
 const inputName = document.getElementById("name-input");
+const buttonNameSubmit = document.getElementById("name-submit");
 const divNames = document.getElementById("names");
 const divRandomNames = document.getElementById("random-names");
 const buttonRandomize = document.getElementById("randomize");
@@ -37,6 +38,7 @@ function onSubmitNameForm(e) {
 		nameListItemElement.appendChild(deleteIconElement);
 		divNames.appendChild(nameListItemElement);
 		inputName.value = null;
+		buttonNameSubmit.disabled = true;
 	}
 }
 
@@ -91,6 +93,15 @@ function onBlurGroupsInput() {
 	}
 }
 
+function onChangeNameInput() {
+	if (inputName.value.trim() && buttonNameSubmit.disabled) {
+		buttonNameSubmit.disabled = false;
+	} else if (!inputName.value.trim() && !buttonNameSubmit.disabled) {
+		buttonNameSubmit.disabled = true;
+	}
+}
+
+inputName.addEventListener("input", onChangeNameInput);
 formName.addEventListener("submit", onSubmitNameForm);
 buttonRandomize.addEventListener("click", onClickRandomize);
 inputGroups.addEventListener("blur", onBlurGroupsInput);

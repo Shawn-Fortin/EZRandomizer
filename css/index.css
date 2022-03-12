@@ -155,6 +155,13 @@ button {
 	background-image: linear-gradient(to top, var(--color-white), var(--color-lightest-green));
 }
 
+#name-submit:disabled {
+	background-color: var(--color-transparent);
+	background-image: none;
+	color: var(--color-light-grey);
+	cursor: default;
+}
+
 #randomize {
 	background-image: linear-gradient(to bottom, var(--color-light-green), var(--color-green));
 	border-radius: 4px;
