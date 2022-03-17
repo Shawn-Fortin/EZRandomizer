@@ -1,96 +1,138 @@
 import { GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS, MAX_GROUPS, MIN_GROUPS } from './constants.js';
 import { shuffle } from './utils.js';
 
-
-//const buttonColorPickerSubmit = document.getElementById("color-picker-submit");
-const inputName = document.getElementById("name-input");
-const divNames = document.getElementById("names");
-const divRandomNames = document.getElementById("random-names");
-const buttonRandomize = document.getElementById("randomize");
-const inputGroups = document.getElementById("groups-input");
-const formName = document.getElementById("name-form");
-const radioNumberOfGroups = document.getElementById("number-of-groups");
-const radioMembersPerGroup = document.getElementById("members-per-group");
-const radioGroupGroupInputType = Array.of(radioNumberOfGroups, radioMembersPerGroup);
+const nameInput = document.getElementById("name-input");
+const namesDiv = document.getElementById("names");
+const randomNamesDiv = document.getElementById("random-names");
+const randomizeButton = document.getElementById("randomize");
+const groupsInput = document.getElementById("groups-input");
+const nameForm = document.getElementById("name-form");
+const numberOfGroupsRadioButton = document.getElementById("number-of-groups");
+const membersPerGroupRadioButton = document.getElementById("members-per-group");
+const groupInputTypeRadioGroup = Array.of(numberOfGroupsRadioButton, membersPerGroupRadioButton);
 
 let nameId = 0;
 
-function getOnClickDeleteNameHandler(nameListItemId) {
-	return () => document.getElementById(nameListItemId).remove();
-}
+nameForm.addEventListener("submit", handleNameFormSubmition);
+randomizeButton.addEventListener("click", onClickRandomize);
+groupsInput.addEventListener("blur", correctGroupsInputValue);
 
-function onSubmitNameForm(e) {
+function handleNameFormSubmition(e) {
 	e.preventDefault();
-	const value = inputName.value;
-	if (value) {
-		const id = `name-${nameId}`;
-		nameId++;
-		const nameListItemElement = document.createElement("div");
-		nameListItemElement.setAttribute("class", "name-list-item");
-		nameListItemElement.setAttribute("id", id);
-		nameListItemElement.innerHTML = value;
-
-		const deleteIconElement = document.createElement("span");
-		deleteIconElement.setAttribute("class", "material-icons-outlined clear-icon");
-		deleteIconElement.innerHTML = "clear";
-		deleteIconElement.addEventListener("click", getOnClickDeleteNameHandler(id));
-		nameListItemElement.appendChild(deleteIconElement);
-		divNames.appendChild(nameListItemElement);
-		inputName.value = null;
+	const name = nameInput.value;
+	if (name) {
+		namesDiv.appendChild(createNameListItemElement(name));
+		nameInput.value = null;
 	}
 }
 
-function calculateNumberOfGroups(numberOfNames) {
-	return Math.ceil(numberOfNames / inputGroups.value);
+function createNameListItemElement(name) {
+	const nameListItemId = getAndIncrementNameId();
+	const nameListItemElement = document.createElement("div");
+	nameListItemElement.setAttribute("class", "name-list-item");
+	nameListItemElement.setAttribute("id", nameListItemId);
+	nameListItemElement.innerHTML = name;
+	nameListItemElement.appendChild(createNameListItemDeleteIcon(nameListItemId));
+	return nameListItemElement;
+}
+
+function getAndIncrementNameId() {
+	return `name-${nameId++}`;
+}
+
+function createNameListItemDeleteIcon(nameListItemId) {
+	const deleteIconElement = document.createElement("span");
+	deleteIconElement.setAttribute("class", "material-icons-outlined clear-icon");
+	deleteIconElement.innerHTML = "clear";
+	deleteIconElement.addEventListener("click", () => removeElementFromDocument(nameListItemId));
+	return deleteIconElement;
+}
+
+function removeElementFromDocument(elementId) {
+	document.getElementById(elementId).remove();
 }
 
 function onClickRandomize() {
-	divRandomNames.innerHTML = null;
-	const names = Array.from(divNames.children).map(namesChild => {
-		return Array.from(namesChild.childNodes).filter(child => child.nodeType === Node.TEXT_NODE)[0].textContent
-	});
-	const groupInputType = radioGroupGroupInputType.find(radioInput => radioInput.checked).value;
-	const numberOfGroups = groupInputType === GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS ? inputGroups.value : calculateNumberOfGroups(names.length);
-	const randomizedNames = shuffle(names, numberOfGroups);
-	if (randomizedNames.length === 1) {
-		randomizedNames[0].forEach(name => {
-			const divName = document.createElement("div");
-			divName.innerHTML = name;
-			divRandomNames.appendChild(divName);
-		});
+	randomNamesDiv.innerHTML = null;
+	const names = getNamesFromNamesDiv();
+	const numberOfGroups = getNumberOfGroups(names.length);
+	const randomizedGroups = shuffle(names, numberOfGroups);
+	if (numberOfGroups === 1) {
+		populateRandomNamesDivWithSingleGroup(randomizedGroups[0]);
 	} else {
-		randomizedNames.forEach((group, index, groups) => {
-			const divGroupContainer = document.createElement("div");
-			divGroupContainer.classList.add("group");
-			if (index === groups.length - 1) {
-				divGroupContainer.classList.add("last-group");
-			}
-
-			const divGroupTitle = document.createElement("div");
-			divGroupTitle.classList.add("group-title");
-			divGroupTitle.innerHTML = `Group ${index + 1}`;
-			divGroupContainer.appendChild(divGroupTitle);
-			group.forEach(name => {
-				const divName = document.createElement("div");
-				divName.innerHTML = name;
-				divGroupContainer.appendChild(divName);
-			})
-			divRandomNames.appendChild(divGroupContainer);
-		})
+		populateRandomNamesDivWithMultipleGroups(randomizedGroups);
 	}
 }
 
-function onBlurGroupsInput() {
-	const value = inputGroups.value;
+function getNamesFromNamesDiv() {
+	return Array.from(namesDiv.children).map(nameListItem => getNameFromNameListItem(nameListItem));
+}
+
+function getNameFromNameListItem(nameListItem) {
+	return Array.from(nameListItem.childNodes).filter(child => child.nodeType === Node.TEXT_NODE)[0].textContent;
+}
+
+function getNumberOfGroups(numberOfNames) {
+	const groupInputType = groupInputTypeRadioGroup.find(radioInput => radioInput.checked).value;
+	return groupInputType === GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS ? Number.parseInt(groupsInput.value) : calculateNumberOfGroups(numberOfNames);
+}
+
+function calculateNumberOfGroups(numberOfNames) {
+	return Math.ceil(numberOfNames / groupsInput.value);
+}
+
+function populateRandomNamesDivWithSingleGroup(group) {
+	group.forEach(name => {
+		const divName = document.createElement("div");
+		divName.innerHTML = name;
+		randomNamesDiv.appendChild(divName);
+	});
+}
+
+function populateRandomNamesDivWithMultipleGroups(randomizedGroups) {
+	randomizedGroups.forEach((nameGroup, index, groups) => {
+		appendGroupToRandomNamesDiv(index, groups, nameGroup);
+	});
+}
+
+function appendGroupToRandomNamesDiv(index, groups, nameGroup) {
+	const divGroupContainer = document.createElement("div");
+	divGroupContainer.classList.add("group");
+	if (index === groups.length - 1) {
+		divGroupContainer.classList.add("last-group");
+	}
+	divGroupContainer.appendChild(createGroupTitleElement(index));
+	nameGroup.forEach(name => {
+		divGroupContainer.appendChild(createNameElement(name));
+	});
+	randomNamesDiv.appendChild(divGroupContainer);
+}
+
+function createGroupTitleElement(groupIndex) {
+	const divGroupTitle = document.createElement("div");
+	divGroupTitle.classList.add("group-title");
+	divGroupTitle.innerHTML = `Group ${groupIndex + 1}`;
+	return divGroupTitle;
+}
+
+function createNameElement(name) {
+	const divName = document.createElement("div");
+	divName.innerHTML = name;
+	return divName;
+}
+
+function correctGroupsInputValue() {
+	const value = groupsInput.value;
 	if (Number.parseInt(value) > MAX_GROUPS) {
-		inputGroups.value = `${MAX_GROUPS}`;
+		groupsInput.value = `${MAX_GROUPS}`;
 	} else if (Number.parseInt(value) < MIN_GROUPS) {
-		inputGroups.value = `${MIN_GROUPS}`;
-	} else if (Number.parseFloat(value) % 1 !== 0) {
-		inputGroups.value = `${Math.floor(Number.parseFloat(value))}`
+		groupsInput.value = `${MIN_GROUPS}`;
+	} else if (!isWholeNumber(value)) {
+		groupsInput.value = `${Math.floor(Number.parseFloat(value))}`
 	}
 }
 
-formName.addEventListener("submit", onSubmitNameForm);
-buttonRandomize.addEventListener("click", onClickRandomize);
-inputGroups.addEventListener("blur", onBlurGroupsInput);
+function isWholeNumber(value) {
+	return Number.parseFloat(value) % 1 === 0;
+}
+
