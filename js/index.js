@@ -15,7 +15,7 @@ const groupInputTypeRadioGroup = Array.of(numberOfGroupsRadioButton, membersPerG
 let nameId = 0;
 
 nameForm.addEventListener("submit", handleNameFormSubmition);
-nameInput.addEventListener("input", onChangeNameInput);
+nameInput.addEventListener("input", correctNameSubmitButtonDisabledStatus);
 randomizeButton.addEventListener("click", shuffleNamesIntoGroups);
 groupsInput.addEventListener("blur", correctGroupsInputValue);
 
@@ -135,7 +135,7 @@ function correctGroupsInputValue() {
 	}
 }
 
-function onChangeNameInput() {
+function correctNameSubmitButtonDisabledStatus() {
 	if (nameInput.value.trim() && nameSubmitButton.disabled) {
 		nameSubmitButton.disabled = false;
 	} else if (!nameInput.value.trim() && !nameSubmitButton.disabled) {
