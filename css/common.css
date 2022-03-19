@@ -6,8 +6,10 @@
 	--color-green: hsl(120, 65%, 50%);
 	--color-dark-green: hsl(120, 50%, 50%);
 	--color-darker-green: hsl(120, 50%, 40%);
+	--color-light-grey: hsl(0, 0%, 80%);
 	--color-grey: #aaaaaa;
-	--color-red: #b31919;
+	--color-light-red: hsl(0, 45%, 80%);
+	--color-red: hsl(0, 75%, 40%);
 	--color-transparent: transparent;
 	--color-white: white;
 }

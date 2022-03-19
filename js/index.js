@@ -2,6 +2,7 @@ import { GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS, MAX_GROUPS, MIN_GROUPS } from './co
 import { shuffleIntoGroups } from './utils.js';
 
 const nameInput = document.getElementById("name-input");
+const nameSubmitButton = document.getElementById("name-submit");
 const namesDiv = document.getElementById("names");
 const randomNamesDiv = document.getElementById("random-names");
 const randomizeButton = document.getElementById("randomize");
@@ -14,6 +15,7 @@ const groupInputTypeRadioGroup = Array.of(numberOfGroupsRadioButton, membersPerG
 let nameId = 0;
 
 nameForm.addEventListener("submit", handleNameFormSubmition);
+nameInput.addEventListener("input", correctNameSubmitButtonDisabledStatus);
 randomizeButton.addEventListener("click", shuffleNamesIntoGroups);
 groupsInput.addEventListener("blur", correctGroupsInputValue);
 
@@ -22,7 +24,9 @@ function handleNameFormSubmition(e) {
 	const name = nameInput.value;
 	if (name) {
 		namesDiv.appendChild(createNameListItemElement(name));
+		correctRandomizeButtonDisabledStatus();
 		nameInput.value = null;
+		nameSubmitButton.disabled = true;
 	}
 }
 
@@ -44,12 +48,29 @@ function createNameListItemDeleteIcon(nameListItemId) {
 	const deleteIconElement = document.createElement("span");
 	deleteIconElement.setAttribute("class", "material-icons-outlined clear-icon");
 	deleteIconElement.innerHTML = "clear";
-	deleteIconElement.addEventListener("click", () => removeElementFromDocument(nameListItemId));
+	deleteIconElement.addEventListener("click", () => removeNameListItemFromDocument(nameListItemId));
 	return deleteIconElement;
 }
 
-function removeElementFromDocument(elementId) {
-	document.getElementById(elementId).remove();
+function removeNameListItemFromDocument(nameListItemId) {
+	document.getElementById(nameListItemId).remove();
+	correctRandomizeButtonDisabledStatus();
+}
+
+function correctRandomizeButtonDisabledStatus() {
+	if (namesDiv.children.length >= 2 && randomizeButton.disabled) {
+		randomizeButton.disabled = false;
+	} else if (namesDiv.children.length <= 1 && !randomizeButton.disabled) {
+		randomizeButton.disabled = true;
+	}
+}
+
+function correctNameSubmitButtonDisabledStatus() {
+	if (nameInput.value.trim() && nameSubmitButton.disabled) {
+		nameSubmitButton.disabled = false;
+	} else if (!nameInput.value.trim() && !nameSubmitButton.disabled) {
+		nameSubmitButton.disabled = true;
+	}
 }
 
 function shuffleNamesIntoGroups() {
@@ -135,4 +156,3 @@ function correctGroupsInputValue() {
 function isWholeNumber(value) {
 	return Number.parseFloat(value) % 1 === 0;
 }
-
