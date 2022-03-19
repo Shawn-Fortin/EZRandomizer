@@ -24,6 +24,7 @@ function handleNameFormSubmition(e) {
 	const name = nameInput.value;
 	if (name) {
 		namesDiv.appendChild(createNameListItemElement(name));
+		correctRandomizeButtonDisabledStatus();
 		nameInput.value = null;
 		nameSubmitButton.disabled = true;
 	}
@@ -47,12 +48,29 @@ function createNameListItemDeleteIcon(nameListItemId) {
 	const deleteIconElement = document.createElement("span");
 	deleteIconElement.setAttribute("class", "material-icons-outlined clear-icon");
 	deleteIconElement.innerHTML = "clear";
-	deleteIconElement.addEventListener("click", () => removeElementFromDocument(nameListItemId));
+	deleteIconElement.addEventListener("click", () => removeNameListItemFromDocument(nameListItemId));
 	return deleteIconElement;
 }
 
-function removeElementFromDocument(elementId) {
-	document.getElementById(elementId).remove();
+function removeNameListItemFromDocument(nameListItemId) {
+	document.getElementById(nameListItemId).remove();
+	correctRandomizeButtonDisabledStatus();
+}
+
+function correctRandomizeButtonDisabledStatus() {
+	if (namesDiv.children.length >= 2 && randomizeButton.disabled) {
+		randomizeButton.disabled = false;
+	} else if (namesDiv.children.length <= 1 && !randomizeButton.disabled) {
+		randomizeButton.disabled = true;
+	}
+}
+
+function correctNameSubmitButtonDisabledStatus() {
+	if (nameInput.value.trim() && nameSubmitButton.disabled) {
+		nameSubmitButton.disabled = false;
+	} else if (!nameInput.value.trim() && !nameSubmitButton.disabled) {
+		nameSubmitButton.disabled = true;
+	}
 }
 
 function shuffleNamesIntoGroups() {
@@ -132,14 +150,6 @@ function correctGroupsInputValue() {
 		groupsInput.value = `${MIN_GROUPS}`;
 	} else if (!isWholeNumber(value)) {
 		groupsInput.value = `${Math.floor(Number.parseFloat(value))}`
-	}
-}
-
-function correctNameSubmitButtonDisabledStatus() {
-	if (nameInput.value.trim() && nameSubmitButton.disabled) {
-		nameSubmitButton.disabled = false;
-	} else if (!nameInput.value.trim() && !nameSubmitButton.disabled) {
-		nameSubmitButton.disabled = true;
 	}
 }
 

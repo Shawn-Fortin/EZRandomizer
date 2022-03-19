@@ -176,6 +176,11 @@ button {
 	background-image: linear-gradient(to top, var(--color-light-green), var(--color-green));
 }
 
+#randomize:disabled {
+	background-image: linear-gradient(to bottom, var(--color-light-grey), var(--color-grey));
+	cursor: default;
+}
+
 #groups-input-container {
 	display: flex;
 	flex-direction: row;
