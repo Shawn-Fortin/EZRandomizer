@@ -1,5 +1,5 @@
 import { GROUPS_INPUT_TYPE_NUMBER_OF_GROUPS, MAX_GROUPS, MIN_GROUPS } from './constants.js';
-import { shuffle } from './utils.js';
+import { shuffleIntoGroups } from './utils.js';
 
 const nameInput = document.getElementById("name-input");
 const namesDiv = document.getElementById("names");
@@ -14,7 +14,7 @@ const groupInputTypeRadioGroup = Array.of(numberOfGroupsRadioButton, membersPerG
 let nameId = 0;
 
 nameForm.addEventListener("submit", handleNameFormSubmition);
-randomizeButton.addEventListener("click", onClickRandomize);
+randomizeButton.addEventListener("click", shuffleNamesIntoGroups);
 groupsInput.addEventListener("blur", correctGroupsInputValue);
 
 function handleNameFormSubmition(e) {
@@ -52,11 +52,11 @@ function removeElementFromDocument(elementId) {
 	document.getElementById(elementId).remove();
 }
 
-function onClickRandomize() {
+function shuffleNamesIntoGroups() {
 	randomNamesDiv.innerHTML = null;
 	const names = getNamesFromNamesDiv();
 	const numberOfGroups = getNumberOfGroups(names.length);
-	const randomizedGroups = shuffle(names, numberOfGroups);
+	const randomizedGroups = shuffleIntoGroups(names, numberOfGroups);
 	if (numberOfGroups === 1) {
 		populateRandomNamesDivWithSingleGroup(randomizedGroups[0]);
 	} else {
